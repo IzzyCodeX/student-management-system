@@ -1,76 +1,51 @@
-// student-management-system script.js
-
-// Notification system function
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.textContent = message;
-    notification.className = 'notification';
-    document.body.appendChild(notification);
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
-}
-
-// Email validation function
-function isValidEmail(email) {
-    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return pattern.test(email);
-}
+// Student Management System
 
 class Student {
-    constructor(name, email) {
+    constructor(id, name, age) {
+        this.id = id;
         this.name = name;
-        this.email = email;
+        this.age = age;
     }
 }
 
 class StudentManager {
     constructor() {
-        this.students = this.loadStudents();
+        this.students = this.loadFromLocalStorage();
     }
 
-    addStudent(name, email) {
-        if (!isValidEmail(email)) {
-            showNotification('Invalid email format.');
-            return;
-        }
-
-        const student = new Student(name, email);
+    addStudent(student) {
         this.students.push(student);
-        this.saveStudents();
-        showNotification('Student added successfully!');
+        this.saveToLocalStorage();
     }
 
-    deleteStudent(email) {
-        this.students = this.students.filter(student => student.email !== email);
-        this.saveStudents();
-        showNotification('Student deleted successfully!');
+    deleteStudent(id) {
+        this.students = this.students.filter(student => student.id !== id);
+        this.saveToLocalStorage();
     }
 
-    searchStudent(email) {
-        return this.students.find(student => student.email === email);
+    searchStudent(id) {
+        return this.students.find(student => student.id === id);
     }
 
-    loadStudents() {
-        const studentsJSON = localStorage.getItem('students');
-        return studentsJSON ? JSON.parse(studentsJSON) : [];
-    }
-
-    saveStudents() {
+    saveToLocalStorage() {
         localStorage.setItem('students', JSON.stringify(this.students));
+    }
+
+    loadFromLocalStorage() {
+        const students = localStorage.getItem('students');
+        return students ? JSON.parse(students) : [];
     }
 }
 
-// Example usage
-const studentManager = new StudentManager();
+// Example of using the StudentManager class
+const manager = new StudentManager();
 
-// Add some students
-studentManager.addStudent('John Doe', 'john@example.com');
-studentManager.addStudent('Jane Doe', 'jane@example.com');
+// Add a student
+manager.addStudent(new Student(1, 'John Doe', 20));
 
 // Delete a student
-studentManager.deleteStudent('john@example.com');
+manager.deleteStudent(1);
 
 // Search for a student
-const searchedStudent = studentManager.searchStudent('jane@example.com');
-console.log(searchedStudent);
+const foundStudent = manager.searchStudent(1);
+console.log(foundStudent);
