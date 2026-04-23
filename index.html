@@ -3,25 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Management System</title>
+    <title>📚 Student Management System</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>📚 Student Management System</h1>
 
-    <h1>Student Management System</h1>
+        <!-- Add Student Form -->
+        <div class="form-section">
+            <h2>➕ Add New Student</h2>
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Student Name *" required>
+                <input type="text" id="id" placeholder="Student ID *" required>
+                <input type="text" id="dept" placeholder="Department *" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email (Optional)">
+                <button>Add Student</button>
+            </div>
+        </div>
 
-    <div>
-        <input type="text" id="name" placeholder="Student Name">
-        <input type="text" id="id" placeholder="Student ID">
-        <input type="text" id="dept" placeholder="Department">
-        <button>Add Student</button>
+        <!-- Search Section -->
+        <div class="search-section">
+            <h2>🔍 Search Students</h2>
+            <input type="text" id="search" placeholder="Search by Name, ID, Email, or Department...">
+        </div>
+
+        <!-- Students List -->
+        <div class="list-section">
+            <h2>📋 Student List (Total: <span id="count">0</span>)</h2>
+            <ul id="studentList" class="student-list">
+                <li class="empty-message">📭 No students yet. Add one to get started!</li>
+            </ul>
+        </div>
     </div>
-
-    <div>
-        <input type="text" id="search" placeholder="Search student...">
-    </div>
-
-    <ul id="studentList"></ul>
 
     <script src="script.js"></script>
 </body>
